@@ -268,13 +268,23 @@ button {
 }
 
 .hero-title-highlight {
+    color: var(--primary-color);
     background: linear-gradient(135deg, var(--primary-color), var(--primary-light), var(--accent-purple));
     background-size: 200% 200%;
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
+    text-fill-color: transparent;
     animation: gradient-text 5s ease infinite;
     position: relative;
+}
+
+/* Fallback for browsers that don't support background-clip: text */
+@supports not (background-clip: text) or not (-webkit-background-clip: text) {
+    .hero-title-highlight {
+        color: var(--primary-color);
+        background: none;
+    }
 }
 
 @keyframes gradient-text {
