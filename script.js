@@ -3,18 +3,6 @@
  */
 
 // ===========================
-// Preloader
-// ===========================
-window.addEventListener('load', () => {
-    const preloader = document.querySelector('.preloader');
-    if (preloader) {
-        setTimeout(() => {
-            preloader.classList.add('hidden');
-        }, 1000);
-    }
-});
-
-// ===========================
 // Custom Cursor
 // ===========================
 const cursor = document.querySelector('.custom-cursor');

@@ -96,44 +96,6 @@ button {
     transition: transform 0.15s ease;
 }
 
-/* ===========================
-   Preloader
-   =========================== */
-.preloader {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: var(--bg-dark);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    z-index: 10000;
-    transition: opacity 0.5s ease, visibility 0.5s ease;
-}
-
-.preloader.hidden {
-    opacity: 0;
-    visibility: hidden;
-}
-
-.preloader-logo {
-    width: 100px;
-    height: 100px;
-    animation: pulse-glow 1.5s ease-in-out infinite;
-}
-
-@keyframes pulse-glow {
-    0%, 100% {
-        transform: scale(1);
-        filter: drop-shadow(0 0 20px var(--primary-color));
-    }
-    50% {
-        transform: scale(1.1);
-        filter: drop-shadow(0 0 40px var(--primary-color));
-    }
-}
 
 /* ===========================
    Scroll Progress Bar
