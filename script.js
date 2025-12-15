@@ -3,52 +3,6 @@
  */
 
 // ===========================
-// Custom Cursor
-// ===========================
-const cursor = document.querySelector('.custom-cursor');
-const cursorFollower = document.querySelector('.cursor-follower');
-
-let mouseX = 0, mouseY = 0;
-let cursorX = 0, cursorY = 0;
-let followerX = 0, followerY = 0;
-
-document.addEventListener('mousemove', (e) => {
-    mouseX = e.clientX;
-    mouseY = e.clientY;
-});
-
-function animateCursor() {
-    // Smooth cursor movement
-    cursorX += (mouseX - cursorX) * 0.2;
-    cursorY += (mouseY - cursorY) * 0.2;
-
-    followerX += (mouseX - followerX) * 0.1;
-    followerY += (mouseY - followerY) * 0.1;
-
-    if (cursor) {
-        cursor.style.transform = `translate(${cursorX}px, ${cursorY}px)`;
-    }
-    if (cursorFollower) {
-        cursorFollower.style.transform = `translate(${followerX}px, ${followerY}px)`;
-    }
-
-    requestAnimationFrame(animateCursor);
-}
-
-animateCursor();
-
-// Cursor expand on hover
-const expandCursorElements = document.querySelectorAll('a, button, .service-card, .work-item, input, textarea');
-expandCursorElements.forEach(el => {
-    el.addEventListener('mouseenter', () => {
-        if (cursor) cursor.classList.add('expand');
-    });
-    el.addEventListener('mouseleave', () => {
-        if (cursor) cursor.classList.remove('expand');
-    });
-});
-
-// ===========================
 // Scroll Progress Bar
 // ===========================
 const scrollProgress = document.querySelector('.scroll-progress');

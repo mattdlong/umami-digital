@@ -35,15 +35,6 @@ body {
     color: var(--text-dark);
     background: var(--bg-white);
     overflow-x: hidden;
-    cursor: none;
-}
-
-body.keyboard-navigation {
-    cursor: auto;
-}
-
-body.keyboard-navigation * {
-    cursor: auto !important;
 }
 
 img {
@@ -60,40 +51,8 @@ a {
 button {
     border: none;
     background: none;
-    cursor: none;
+    cursor: pointer;
     font-family: inherit;
-}
-
-/* ===========================
-   Custom Cursor
-   =========================== */
-.custom-cursor {
-    width: 20px;
-    height: 20px;
-    border: 2px solid var(--primary-color);
-    border-radius: 50%;
-    position: fixed;
-    pointer-events: none;
-    z-index: 99999;
-    transition: transform 0.2s ease, width 0.3s ease, height 0.3s ease, background-color 0.3s ease;
-    mix-blend-mode: difference;
-}
-
-.custom-cursor.expand {
-    width: 60px;
-    height: 60px;
-    background-color: rgba(233, 78, 61, 0.2);
-}
-
-.cursor-follower {
-    width: 8px;
-    height: 8px;
-    background: var(--primary-color);
-    border-radius: 50%;
-    position: fixed;
-    pointer-events: none;
-    z-index: 99998;
-    transition: transform 0.15s ease;
 }
 
 
