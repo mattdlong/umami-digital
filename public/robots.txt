@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://umamionline.com/sitemap-index.xml
