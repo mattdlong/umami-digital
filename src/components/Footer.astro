@@ -1,0 +1,39 @@
+---
+import Logo from './Logo.astro';
+const year = new Date().getFullYear();
+---
+<footer class="site-footer">
+  <div class="container">
+    <a href="mailto:hello@umamionline.com" class="footer-email">hello@umamionline.com</a>
+    <div class="row">
+      <a href="/" aria-label="Umami Digital — home"><Logo /></a>
+      <nav aria-label="Footer">
+        <a href="/work/">Work</a>
+        <a href="/studio/">Studio</a>
+        <a href="/contact/">Contact</a>
+      </nav>
+      <p class="muted-light">&copy; {year} Umami Digital</p>
+    </div>
+  </div>
+</footer>
+
+<style>
+  .site-footer { background: var(--ink); color: var(--paper); padding-block: var(--space-5); margin-top: auto; }
+  .footer-email {
+    font-family: var(--font-display);
+    font-size: var(--step-3);
+    text-decoration: none;
+    display: inline-block;
+    margin-bottom: var(--space-4);
+    border-bottom: 2px solid transparent;
+  }
+  .footer-email:hover { border-bottom-color: var(--red); color: #fff; }
+  .row {
+    display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 1.5rem;
+    border-top: 1px solid var(--hairline-light); padding-top: var(--space-3);
+  }
+  nav { display: flex; gap: 1.8rem; }
+  nav a { text-decoration: none; font-size: 0.9rem; opacity: 0.85; }
+  nav a:hover { color: var(--red); opacity: 1; }
+  .muted-light { opacity: 0.6; font-size: 0.85rem; }
+</style>
