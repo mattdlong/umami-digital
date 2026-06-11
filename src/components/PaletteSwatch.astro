@@ -1,0 +1,28 @@
+---
+interface Props { palette: { name: string; hex: string }[] }
+const { palette } = Astro.props;
+const isLight = (hex: string) => {
+  const n = parseInt(hex.slice(1), 16);
+  const r = (n >> 16) & 255, g = (n >> 8) & 255, b = n & 255;
+  return (r * 299 + g * 587 + b * 114) / 1000 > 150;
+};
+---
+<div class="palette" role="list" aria-label="Colour palette">
+  {palette.map(({ name, hex }) => (
+    <div class="swatch" role="listitem" style={`background:${hex};color:${isLight(hex) ? '#141414' : '#FAF7F2'}`}>
+      <span class="name">{name}</span>
+      <span class="hex">{hex}</span>
+    </div>
+  ))}
+</div>
+
+<style>
+  .palette { display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 0.75rem; }
+  .swatch {
+    aspect-ratio: 1 / 1.1; border-radius: 12px; padding: 1rem;
+    display: flex; flex-direction: column; justify-content: flex-end;
+    border: 1px solid var(--hairline);
+  }
+  .name { font-weight: 600; font-size: 0.95rem; }
+  .hex { font-size: 0.78rem; opacity: 0.75; font-variant-numeric: tabular-nums; }
+</style>

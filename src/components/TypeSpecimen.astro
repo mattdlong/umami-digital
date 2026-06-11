@@ -1,0 +1,31 @@
+---
+interface Props {
+  display: string;       // description label from frontmatter
+  text: string;          // description label from frontmatter
+  displayStyle?: string; // CSS for the Aa glyph, e.g. font-variation-settings
+  accent: string;        // project accent hex
+}
+const { display, text, displayStyle = '', accent } = Astro.props;
+---
+<div class="specimen">
+  <div class="glyph-cell">
+    <span class="glyph" style={`color:${accent};${displayStyle}`} aria-hidden="true">Aa</span>
+  </div>
+  <dl>
+    <div><dt>Display</dt><dd>{display}</dd></div>
+    <div><dt>Text</dt><dd>{text}</dd></div>
+  </dl>
+</div>
+
+<style>
+  .specimen {
+    display: grid; grid-template-columns: minmax(160px, 240px) 1fr; gap: var(--space-3);
+    align-items: center; border: 1px solid var(--hairline); border-radius: 12px; padding: var(--space-3);
+  }
+  .glyph-cell { display: grid; place-items: center; }
+  .glyph { font-family: var(--font-display); font-size: clamp(5rem, 10vw, 8rem); line-height: 1; }
+  dl { display: grid; gap: 1rem; margin: 0; }
+  dt { font-size: 0.78rem; font-weight: 650; letter-spacing: 0.14em; text-transform: uppercase; color: var(--ink-50); }
+  dd { margin: 0; font-size: var(--step-1); font-family: var(--font-display); }
+  @media (max-width: 600px) { .specimen { grid-template-columns: 1fr; } }
+</style>

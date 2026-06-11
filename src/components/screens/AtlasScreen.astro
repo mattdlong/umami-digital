@@ -1,0 +1,24 @@
+<div class="atlas">
+  <p class="k">Spendable this month</p>
+  <p class="big">£2,340</p>
+  <div class="rows" aria-hidden="true">
+    <div class="row"><span>Smoothing buffer</span><span class="num">£1,180</span></div>
+    <div class="row"><span>Tax pot <em>(set aside automatically)</em></span><span class="num">£4,260</span></div>
+    <div class="row"><span>Invoices due</span><span class="num">£3,900</span></div>
+  </div>
+  <div class="bar" aria-hidden="true"><i style="width: 62%"></i></div>
+  <p class="hint">62% of a typical month — buffer will top up the rest</p>
+</div>
+
+<style>
+  .atlas { background: #10182B; color: #F2F4F8; padding: clamp(1.5rem, 4vw, 2.5rem); font-family: var(--font-text); }
+  .k { font-size: 0.78rem; text-transform: uppercase; letter-spacing: 0.12em; color: #5A6478; margin-bottom: 0.3rem; }
+  .big { font-size: clamp(2.4rem, 6vw, 3.6rem); font-weight: 700; letter-spacing: -0.02em; margin-bottom: 1.25rem; font-variant-numeric: tabular-nums; }
+  .rows { display: grid; gap: 0.6rem; margin-bottom: 1.25rem; }
+  .row { display: flex; justify-content: space-between; gap: 1rem; border-bottom: 1px solid rgba(90, 100, 120, 0.3); padding-bottom: 0.6rem; font-size: 0.92rem; }
+  .row em { font-style: normal; color: #5A6478; font-size: 0.8rem; }
+  .num { font-variant-numeric: tabular-nums; font-weight: 600; }
+  .bar { height: 8px; border-radius: 999px; background: rgba(90, 100, 120, 0.3); overflow: hidden; margin-bottom: 0.5rem; }
+  .bar i { display: block; height: 100%; background: #2E5BFF; border-radius: 999px; }
+  .hint { font-size: 0.8rem; color: #5A6478; }
+</style>

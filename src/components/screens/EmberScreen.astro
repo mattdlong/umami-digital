@@ -1,0 +1,27 @@
+<div class="ember">
+  <p class="venue-label">Book a table</p>
+  <div class="venues" aria-hidden="true">
+    <span class="pill active">The Grill Room</span>
+    <span class="pill">Cinder</span>
+    <span class="pill">Ash &amp; Oak</span>
+  </div>
+  <div class="row" aria-hidden="true">
+    <div class="field"><span class="k">Date</span><span class="v">Fri 26 Jun</span></div>
+    <div class="field"><span class="k">Time</span><span class="v">19:30</span></div>
+    <div class="field"><span class="k">Guests</span><span class="v">4</span></div>
+  </div>
+  <span class="cta">Confirm table — step 3 of 3</span>
+</div>
+
+<style>
+  .ember { background: #1C1A17; color: #F4EFE6; padding: clamp(1.5rem, 4vw, 2.5rem); font-family: var(--font-text); }
+  .venue-label { font-family: var(--font-display); font-size: var(--step-2); margin-bottom: 1.25rem; }
+  .venues { display: flex; gap: 0.5rem; flex-wrap: wrap; margin-bottom: 1.25rem; }
+  .pill { border: 1px solid #A39E94; border-radius: 999px; padding: 0.35rem 0.9rem; font-size: 0.85rem; color: #A39E94; }
+  .pill.active { background: #D8491B; border-color: #D8491B; color: #F4EFE6; }
+  .row { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0.75rem; margin-bottom: 1.25rem; }
+  .field { border: 1px solid rgba(163, 158, 148, 0.4); border-radius: 10px; padding: 0.75rem; display: grid; gap: 0.2rem; }
+  .k { font-size: 0.72rem; text-transform: uppercase; letter-spacing: 0.1em; color: #A39E94; }
+  .v { font-weight: 600; }
+  .cta { display: inline-block; background: #D8491B; color: #F4EFE6; border-radius: 999px; padding: 0.7rem 1.4rem; font-weight: 600; font-size: 0.95rem; }
+</style>
