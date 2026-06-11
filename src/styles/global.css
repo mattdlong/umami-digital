@@ -38,6 +38,7 @@ body {
   -webkit-font-smoothing: antialiased;
 }
 img, svg { display: block; max-width: 100%; }
+[hidden] { display: none !important; }
 a { color: inherit; }
 h1, h2, h3 {
   font-family: var(--font-display);

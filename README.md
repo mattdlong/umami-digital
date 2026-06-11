@@ -1,34 +1,21 @@
-# Umami Digital
+# Umami Digital — Tier-1 Redesign (Proposal)
 
-A boutique digital agency website showcasing creative excellence and innovation.
+Internal redesign proposal. Not deployed — `main` still serves the current
+live site; this branch (`redesign/tier1`) is viewed locally.
 
-## Website
+## View the proposal
 
-Visit us at [umamionline.com](https://umamionline.com)
+    npm install
+    npm run build
+    npm run preview   # open the printed localhost URL
 
-## Features
+## Stack
 
-- Modern, responsive design
-- Smooth animations and interactions
-- Mobile-friendly navigation
-- Contact form
-- SEO optimized
+Astro 5 · Fraunces + Inter (self-hosted) · no client framework.
+Case studies live in `src/content/work/` as markdown; all case-study
+visuals are live HTML/SVG components in `src/components/`.
 
-## Technology Stack
+## Spec & plan
 
-- HTML5
-- CSS3 (Custom animations)
-- Vanilla JavaScript
-- No external dependencies
-
-## Local Development
-
-Simply open `index.html` in your browser to view the site locally.
-
-## Deployment
-
-This site is deployed on GitHub Pages and configured with a custom domain.
-
----
-
-© 2024 Umami Digital. All rights reserved.
+- docs/superpowers/specs/2026-06-11-tier1-redesign-design.md
+- docs/superpowers/plans/2026-06-11-tier1-redesign.md
