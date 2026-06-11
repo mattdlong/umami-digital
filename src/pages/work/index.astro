@@ -11,16 +11,18 @@ const entries = (await getCollection('work')).sort((a, b) => a.data.order - b.da
 >
   <section class="section container">
     <p class="eyebrow">Selected work</p>
-    <h1 class="display">The proof is in the tasting.</h1>
+    <h1 class="display rise"><span class="rise-inner">The proof is in the <em>tasting</em><span class="dot">.</span></span></h1>
     <p class="muted framing">Concept engagements, shown the way we deliver — codenames and all.</p>
     <div class="list">
-      {entries.map((e) => (
+      {entries.map((e, i) => (
         <WorkCard
           slug={e.id}
           codename={e.data.codename}
           sector={e.data.sector}
           engagement={e.data.engagement}
           services={e.data.services}
+          index={i + 1}
+          tint={e.data.tint}
         />
       ))}
     </div>

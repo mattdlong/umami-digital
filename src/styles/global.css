@@ -114,9 +114,17 @@ p { max-width: 65ch; }
 }
 .skip-link:focus { top: 0; }
 
+/* ===== Brand tic: oversized red full stop ===== */
+.dot { color: var(--red); }
+
 /* ===== Scroll reveal (activated by BaseLayout script) ===== */
 .reveal { opacity: 0; transform: translateY(16px); transition: opacity 0.6s ease, transform 0.6s ease; }
 .reveal.is-visible { opacity: 1; transform: none; }
+
+/* ===== Masked line rise for display headlines ===== */
+.rise { overflow: hidden; }
+.rise .rise-inner { display: block; transform: translateY(115%); transition: transform 0.85s cubic-bezier(0.2, 0.6, 0.2, 1); }
+.rise.is-visible .rise-inner { transform: none; }
 
 /* ===== Reduced motion ===== */
 @media (prefers-reduced-motion: reduce) {

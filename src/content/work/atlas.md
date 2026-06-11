@@ -13,6 +13,7 @@ palette:
 type:
   display: Engineered grotesque, tight tracking
   text: The same family at text sizes — one voice, two volumes
+tint: "#F2F4F8"
 ---
 
 ## The brief

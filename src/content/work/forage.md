@@ -13,6 +13,7 @@ palette:
 type:
   display: Sturdy serif with a hand-set warmth
   text: Plainspoken grotesque, generous line height
+tint: "#EFE8DA"
 ---
 
 ## The brief

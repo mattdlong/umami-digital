@@ -1,11 +1,23 @@
-<h1 class="display hero-title">
-  <span class="line">We design</span>
-  <span class="line">the <span class="blank"><span class="word" data-hero-word>taste</span></span></span>
-  <span class="line">you can&rsquo;t name.</span>
+<h1 class="hero-title">
+  <span class="line"><span class="line-in">We design</span></span>
+  <span class="line"><span class="line-in">the <span class="blank"><span class="word" data-hero-word>taste</span></span></span></span>
+  <span class="line"><span class="line-in">you can&rsquo;t name<span class="dot">.</span></span></span>
 </h1>
 
 <style>
-  .line { display: block; }
+  .hero-title {
+    font-family: var(--font-display);
+    font-size: clamp(2.9rem, 9.5vw, 8.5rem);
+    font-weight: 540;
+    line-height: 1.04;
+    letter-spacing: -0.015em;
+  }
+  .line { display: block; overflow: hidden; }
+  .line-in { display: block; transform: translateY(115%); animation: hero-rise 0.9s cubic-bezier(0.2, 0.6, 0.2, 1) forwards; }
+  .line:nth-child(1) .line-in { animation-delay: 0.05s; }
+  .line:nth-child(2) .line-in { animation-delay: 0.16s; }
+  .line:nth-child(3) .line-in { animation-delay: 0.27s; }
+  @keyframes hero-rise { to { transform: none; } }
   .blank { color: var(--red-text); font-style: italic; }
   .word { display: inline-block; transition: opacity 0.35s ease, filter 0.35s ease; }
   .word.is-out { opacity: 0; filter: blur(8px); }

@@ -45,10 +45,13 @@ const ogImage = new URL('/favicon-256.png', Astro.site);
     <Nav />
     <main id="main"><slot /></main>
     <Footer />
-    <noscript><style>.reveal { opacity: 1 !important; transform: none !important; }</style></noscript>
+    <noscript><style>
+      .reveal { opacity: 1 !important; transform: none !important; }
+      .rise .rise-inner { transform: none !important; }
+    </style></noscript>
     <script>
       function initReveals() {
-        const els = document.querySelectorAll('.reveal');
+        const els = document.querySelectorAll('.reveal, .rise');
         if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
           els.forEach((el) => el.classList.add('is-visible'));
           return;

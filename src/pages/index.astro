@@ -53,24 +53,28 @@ const steps = [
     </div>
   </section>
 
-  <section class="section container" aria-label="Selected work">
-    <SectionHeading eyebrow="Selected work" title="The proof is in the tasting." />
-    <div class="work-list">
-      {entries.map((e) => (
-        <WorkCard
-          slug={e.id}
-          codename={e.data.codename}
-          sector={e.data.sector}
-          engagement={e.data.engagement}
-          services={e.data.services}
-        />
-      ))}
+  <section class="work-dark" aria-label="Selected work">
+    <div class="section container">
+      <SectionHeading eyebrow="Selected work" title="The proof is in the <em>tasting</em>." />
+      <div class="work-list">
+        {entries.map((e, i) => (
+          <WorkCard
+            slug={e.id}
+            codename={e.data.codename}
+            sector={e.data.sector}
+            engagement={e.data.engagement}
+            services={e.data.services}
+            index={i + 1}
+            tint={e.data.tint}
+          />
+        ))}
+      </div>
+      <a href="/work/" class="all-link">All work →</a>
     </div>
-    <a href="/work/" class="all-link">All work →</a>
   </section>
 
   <section class="section container" aria-label="What we do">
-    <SectionHeading eyebrow="What we do" title="Three disciplines. One standard." />
+    <SectionHeading eyebrow="What we do" title="Three disciplines. One <em>standard</em>." />
     <p class="muted intro reveal">Nothing forgettable leaves the studio.</p>
     <div class="services">
       {services.map((s) => (
@@ -84,7 +88,7 @@ const steps = [
   </section>
 
   <section class="section container" aria-label="How we work">
-    <SectionHeading eyebrow="How we work" title="No big reveals. No small print." />
+    <SectionHeading eyebrow="How we work" title="No big <em>reveals</em>. No small print." />
     <ol class="steps">
       {steps.map((s) => (
         <li class="reveal">
@@ -99,7 +103,15 @@ const steps = [
 </BaseLayout>
 
 <style>
-  .hero { padding-block: var(--space-6); position: relative; overflow: hidden; }
+  .hero {
+    min-height: calc(100svh - 78px);
+    display: flex;
+    align-items: center;
+    padding-block: var(--space-5);
+    position: relative;
+    overflow: hidden;
+  }
+  .hero > .container { width: 100%; }
   .ghost::before { content: 'umami'; }
   .ghost {
     position: absolute;
@@ -115,8 +127,22 @@ const steps = [
   }
   .hero-sub { font-size: var(--step-1); color: var(--ink-70); margin-block: var(--space-4); max-width: 46ch; }
   .hero-actions { display: flex; gap: 1rem; flex-wrap: wrap; }
-  .work-list { border-bottom: 1px solid var(--hairline); margin-bottom: var(--space-3); }
-  .all-link { font-weight: 600; text-decoration: none; }
+  .work-dark { background: var(--ink); }
+  .work-dark :global(.section-heading h2) { color: var(--paper); }
+  .work-dark :global(.eyebrow) { color: var(--red); }
+  .work-dark :global(.work-card) {
+    --fg: var(--paper);
+    --fg-soft: rgba(250, 247, 242, 0.78);
+    --tag-b: var(--hairline-light);
+    border-top-color: var(--hairline-light);
+  }
+  .work-dark :global(.work-card:hover) {
+    --fg: var(--ink);
+    --fg-soft: var(--ink-70);
+    --tag-b: rgba(20, 20, 20, 0.3);
+  }
+  .work-list { border-bottom: 1px solid var(--hairline-light); margin-bottom: var(--space-3); }
+  .all-link { font-weight: 600; text-decoration: none; color: var(--paper); }
   .all-link:hover { color: var(--red); }
   .intro { font-size: var(--step-1); margin-bottom: var(--space-4); font-family: var(--font-display); }
   .services { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: var(--space-4); }
@@ -127,6 +153,27 @@ const steps = [
     .service:nth-child(2) { margin-top: var(--space-5); }
     .service:nth-child(3) { margin-top: calc(var(--space-5) * 2); }
   }
+</style>
+
+<script>
+  function initGhost() {
+    const ghost = document.querySelector<HTMLElement>('.ghost');
+    const hero = document.querySelector<HTMLElement>('.hero');
+    if (!ghost || !hero || ghost.dataset.init) return;
+    if (!window.matchMedia('(pointer: fine)').matches) return;
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+    ghost.dataset.init = '1';
+    hero.addEventListener('mousemove', (e) => {
+      const r = hero.getBoundingClientRect();
+      const x = (e.clientX - r.left) / r.width - 0.5;
+      const y = (e.clientY - r.top) / r.height - 0.5;
+      ghost.style.transform = `translate(${x * 30}px, ${y * 20}px)`;
+    });
+  }
+  document.addEventListener('astro:page-load', initGhost);
+</script>
+
+<style>
   .steps { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: var(--space-4); counter-reset: step; }
   .steps li { border-top: 2px solid var(--ink); padding-top: var(--space-2); }
   .steps h3 { font-size: var(--step-1); margin-bottom: 0.5rem; }
