@@ -21,17 +21,17 @@ const screens: Record<string, { component: any; caption: string; displayStyle: s
   ember: {
     component: EmberScreen,
     caption: 'The booking flow — three steps, fully in the group’s voice.',
-    displayStyle: "font-variation-settings: 'SOFT' 0, 'WONK' 1; font-weight: 600;",
+    displayStyle: 'font-weight: 600; letter-spacing: -0.03em;',
   },
   forage: {
     component: ForageScreen,
     caption: 'Product cards lead with weight, unit price and container.',
-    displayStyle: "font-variation-settings: 'SOFT' 100, 'WONK' 0; font-weight: 500;",
+    displayStyle: 'font-weight: 440;',
   },
   atlas: {
     component: AtlasScreen,
     caption: 'The dashboard — one number, machinery revealed progressively.',
-    displayStyle: "font-variation-settings: 'SOFT' 0, 'WONK' 0; font-weight: 380; font-family: var(--font-text); letter-spacing: -0.04em;",
+    displayStyle: 'font-weight: 380; font-family: var(--font-text); letter-spacing: -0.04em;',
   },
 };
 const { component: Screen, caption, displayStyle } = screens[entry.id];

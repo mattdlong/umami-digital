@@ -8,7 +8,7 @@ const path = Astro.url.pathname;
 ---
 <header class="site-nav">
   <div class="container row">
-    <a href="/" class="logo-link" aria-label="Umami Digital — home"><Logo /></a>
+    <a href="/" class="logo-link" aria-label="UD Umami Digital — home"><Logo /></a>
     <nav aria-label="Main">
       <ul>
         {links.map(({ href, label }) => (
@@ -27,7 +27,7 @@ const path = Astro.url.pathname;
   .row { display: flex; align-items: center; justify-content: space-between; gap: 1rem; }
   ul { display: flex; align-items: center; gap: clamp(1rem, 3vw, 2.2rem); list-style: none; margin: 0; padding: 0; }
   nav a:not(.btn) { text-decoration: none; font-weight: 550; font-size: 0.95rem; }
-  nav a:not(.btn):hover, nav a[aria-current='page']:not(.btn) { color: var(--red); }
+  nav a:not(.btn):hover, nav a[aria-current='page']:not(.btn) { color: var(--red-text); }
   .nav-cta { padding: 0.55rem 1.2rem; font-size: 0.9rem; }
   @media (max-width: 480px) { .nav-cta { display: none; } }
 </style>
