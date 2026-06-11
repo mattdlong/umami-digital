@@ -1,0 +1,86 @@
+---
+import { getCollection, render } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import PaletteSwatch from '../../components/PaletteSwatch.astro';
+import TypeSpecimen from '../../components/TypeSpecimen.astro';
+import ScreenFrame from '../../components/ScreenFrame.astro';
+import EmberScreen from '../../components/screens/EmberScreen.astro';
+import ForageScreen from '../../components/screens/ForageScreen.astro';
+import AtlasScreen from '../../components/screens/AtlasScreen.astro';
+
+export async function getStaticPaths() {
+  const entries = await getCollection('work');
+  return entries.map((entry) => ({ params: { slug: entry.id }, props: { entry } }));
+}
+
+const { entry } = Astro.props;
+const { Content } = await render(entry);
+const { codename, sector, engagement, services, summary, palette, type } = entry.data;
+
+const screens: Record<string, { component: any; caption: string; displayStyle: string }> = {
+  ember: {
+    component: EmberScreen,
+    caption: 'The booking flow — three steps, fully in the group’s voice.',
+    displayStyle: "font-variation-settings: 'SOFT' 0, 'WONK' 1; font-weight: 600;",
+  },
+  forage: {
+    component: ForageScreen,
+    caption: 'Product cards lead with weight, unit price and container.',
+    displayStyle: "font-variation-settings: 'SOFT' 100, 'WONK' 0; font-weight: 500;",
+  },
+  atlas: {
+    component: AtlasScreen,
+    caption: 'The dashboard — one number, machinery revealed progressively.',
+    displayStyle: "font-variation-settings: 'SOFT' 0, 'WONK' 0; font-weight: 380; font-family: var(--font-text); letter-spacing: -0.04em;",
+  },
+};
+const { component: Screen, caption, displayStyle } = screens[entry.id];
+
+const all = (await getCollection('work')).sort((a, b) => a.data.order - b.data.order);
+const idx = all.findIndex((e) => e.id === entry.id);
+const next = all[(idx + 1) % all.length];
+---
+<BaseLayout title={`${codename} — Umami Digital`} description={summary}>
+  <article>
+    <header class="section container">
+      <p class="eyebrow">{sector}</p>
+      <h1 class="display">{codename}</h1>
+      <p class="engagement">{engagement}</p>
+      <ul class="tags" role="list">
+        {services.map((s) => <li class="tag">{s}</li>)}
+      </ul>
+    </header>
+
+    <div class="container narrative reveal">
+      <Content />
+    </div>
+
+    <section class="container section artifacts" aria-label="Identity system">
+      <h2 class="art-heading">The system</h2>
+      <TypeSpecimen display={type.display} text={type.text} displayStyle={displayStyle} accent={palette[1].hex} />
+      <PaletteSwatch palette={palette} />
+      <ScreenFrame caption={caption}><Screen /></ScreenFrame>
+    </section>
+
+    <nav class="container next-case" aria-label="Next case study">
+      <a href={`/work/${next.id}/`}>
+        <span class="eyebrow">Next case</span>
+        <span class="next-name">{next.data.codename} →</span>
+      </a>
+    </nav>
+  </article>
+</BaseLayout>
+
+<style>
+  .engagement { font-family: var(--font-display); font-size: var(--step-1); color: var(--ink-70); margin-block: var(--space-2) var(--space-3); }
+  .tags { display: flex; flex-wrap: wrap; gap: 0.5rem; list-style: none; margin: 0; padding: 0; }
+  .narrative { max-width: 760px; }
+  .narrative :global(h2) { font-size: var(--step-2); margin-block: var(--space-4) var(--space-2); }
+  .narrative :global(p) { margin-bottom: var(--space-2); color: var(--ink-70); font-size: var(--step-0); }
+  .artifacts { display: grid; gap: var(--space-4); }
+  .art-heading { font-size: var(--step-2); }
+  .next-case { padding-block: var(--space-5); border-top: 1px solid var(--hairline); }
+  .next-case a { text-decoration: none; display: grid; gap: 0.4rem; }
+  .next-name { font-family: var(--font-display); font-size: var(--step-3); }
+  .next-case a:hover .next-name { color: var(--red); }
+</style>
