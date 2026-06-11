@@ -1,0 +1,104 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+---
+<BaseLayout
+  title="Contact — Umami Digital"
+  description="Tell us what you're making. A sentence is enough to start."
+>
+  <section class="section container grid">
+    <div>
+      <p class="eyebrow">Contact</p>
+      <h1 class="display">Tell us what you&rsquo;re making.</h1>
+      <p class="sub muted">A sentence is enough to start. We reply within two working days.</p>
+      <a class="email-link" href="mailto:hello@umamionline.com">hello@umamionline.com</a>
+    </div>
+
+    <form id="contact-form" novalidate>
+      <div class="field">
+        <label for="name">Name</label>
+        <input id="name" name="name" type="text" autocomplete="name" required />
+        <p class="error" data-error-for="name" hidden>Please tell us your name.</p>
+      </div>
+      <div class="field">
+        <label for="email">Email</label>
+        <input id="email" name="email" type="email" autocomplete="email" required />
+        <p class="error" data-error-for="email" hidden>That email doesn&rsquo;t look right.</p>
+      </div>
+      <div class="field">
+        <label for="company">Company <span class="muted">(optional)</span></label>
+        <input id="company" name="company" type="text" autocomplete="organization" />
+      </div>
+      <div class="field">
+        <label for="message">What are you making?</label>
+        <textarea id="message" name="message" rows="5" required></textarea>
+        <p class="error" data-error-for="message" hidden>Give us at least a sentence.</p>
+      </div>
+      <button type="submit" class="btn btn--solid">Send it over</button>
+    </form>
+
+    <div id="form-success" class="success" hidden>
+      <h2>Thanks — it&rsquo;s with us.</h2>
+      <p class="muted">We&rsquo;ll reply within two working days. If it&rsquo;s urgent,
+        email <a href="mailto:hello@umamionline.com">hello@umamionline.com</a>.</p>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .grid { display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-5); align-items: start; }
+  .sub { font-size: var(--step-1); margin-block: var(--space-3); }
+  .email-link { font-family: var(--font-display); font-size: var(--step-2); text-decoration: none; border-bottom: 2px solid var(--red); }
+  .email-link:hover { color: var(--red); }
+  form { display: grid; gap: var(--space-3); }
+  .field { display: grid; gap: 0.4rem; }
+  label { font-weight: 600; font-size: 0.92rem; }
+  input, textarea {
+    font: inherit; color: var(--ink); background: #fff;
+    border: 1px solid var(--hairline); border-radius: 10px; padding: 0.8rem 1rem;
+  }
+  input:focus, textarea:focus { outline: 2px solid var(--red); outline-offset: 1px; border-color: transparent; }
+  .field.invalid input, .field.invalid textarea { border-color: var(--red); }
+  .error { color: var(--red); font-size: 0.85rem; }
+  button { justify-self: start; }
+  .success h2 { font-size: var(--step-2); margin-bottom: var(--space-2); }
+  @media (max-width: 800px) { .grid { grid-template-columns: 1fr; } }
+</style>
+
+<script>
+  function initContactForm() {
+    const form = document.getElementById('contact-form') as HTMLFormElement | null;
+    const success = document.getElementById('form-success');
+    if (!form || !success || form.dataset.init) return;
+    form.dataset.init = '1';
+
+    const setError = (name: string, show: boolean) => {
+      const field = form.querySelector(`[name="${name}"]`)?.closest('.field');
+      const msg = form.querySelector<HTMLElement>(`[data-error-for="${name}"]`);
+      field?.classList.toggle('invalid', show);
+      if (msg) msg.hidden = !show;
+    };
+
+    form.addEventListener('submit', (e) => {
+      e.preventDefault();
+      const data = new FormData(form);
+      const name = String(data.get('name') ?? '').trim();
+      const email = String(data.get('email') ?? '').trim();
+      const message = String(data.get('message') ?? '').trim();
+
+      const nameOk = name.length > 0;
+      const emailOk = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+      const messageOk = message.length >= 10;
+      setError('name', !nameOk);
+      setError('email', !emailOk);
+      setError('message', !messageOk);
+      if (!nameOk || !emailOk || !messageOk) return;
+
+      // Proposal build: no backend wired. Swap this block for a Web3Forms
+      // POST when the site ships.
+      form.hidden = true;
+      success.hidden = false;
+      success.scrollIntoView({ block: 'center' });
+    });
+  }
+  document.addEventListener('astro:page-load', initContactForm);
+</script>
