@@ -1,11 +1,112 @@
 ---
+import { getCollection } from 'astro:content';
 import BaseLayout from '../layouts/BaseLayout.astro';
+import HeroBlank from '../components/HeroBlank.astro';
+import SectionHeading from '../components/SectionHeading.astro';
+import WorkCard from '../components/WorkCard.astro';
+import CtaBand from '../components/CtaBand.astro';
+
+const entries = (await getCollection('work')).sort((a, b) => a.data.order - b.data.order);
+
+const services = [
+  {
+    n: '01',
+    name: 'Strategy',
+    blurb: 'Positioning, naming, narrative. We find the one true thing about your brand and sharpen it until it cuts through.',
+  },
+  {
+    n: '02',
+    name: 'Identity',
+    blurb: 'From logo to language — identity systems with a point of view, built to flex and designed to last.',
+  },
+  {
+    n: '03',
+    name: 'Web',
+    blurb: 'Design and build, under one roof. Fast, accessible, editorial websites that feel as considered as they look.',
+  },
+];
+
+const steps = [
+  { name: 'Discover', blurb: 'We listen before we sketch — stakeholders, customers, competitors. The brief behind the brief.' },
+  { name: 'Define', blurb: 'One page, one position, one measure of success. Agreed before any pixels move.' },
+  { name: 'Design', blurb: 'Iterative, transparent, opinionated. You see work early and often — never a big reveal.' },
+  { name: 'Deliver', blurb: 'Built properly, handed over cleanly, measured honestly.' },
+];
 ---
 <BaseLayout
   title="Umami Digital — Strategy, identity and web"
   description="Umami Digital is a strategy, identity and web studio for brands that want to be remembered, not just recognised."
 >
-  <section class="section container">
-    <h1 class="display">Umami Digital</h1>
+  <section class="hero container">
+    <HeroBlank />
+    <p class="hero-sub">
+      Umami is the fifth taste — the depth you notice before you can explain it.
+      We bring it to brands: strategy, identity and web for companies that want
+      to be remembered, not just recognised.
+    </p>
+    <div class="hero-actions">
+      <a href="/contact/" class="btn btn--solid">Start a project</a>
+      <a href="/work/" class="btn">See the work</a>
+    </div>
   </section>
+
+  <section class="section container" aria-label="Selected work">
+    <SectionHeading eyebrow="Selected work" title="The proof is in the tasting." />
+    <div class="work-list">
+      {entries.map((e) => (
+        <WorkCard
+          slug={e.id}
+          codename={e.data.codename}
+          sector={e.data.sector}
+          engagement={e.data.engagement}
+          services={e.data.services}
+        />
+      ))}
+    </div>
+    <a href="/work/" class="all-link">All work →</a>
+  </section>
+
+  <section class="section container" aria-label="What we do">
+    <SectionHeading eyebrow="What we do" title="Three disciplines. One standard." />
+    <p class="muted intro reveal">Nothing forgettable leaves the studio.</p>
+    <div class="services">
+      {services.map((s) => (
+        <div class="service reveal">
+          <span class="n" aria-hidden="true">{s.n}</span>
+          <h3>{s.name}</h3>
+          <p class="muted">{s.blurb}</p>
+        </div>
+      ))}
+    </div>
+  </section>
+
+  <section class="section container" aria-label="How we work">
+    <SectionHeading eyebrow="How we work" title="No big reveals. No small print." />
+    <ol class="steps">
+      {steps.map((s) => (
+        <li class="reveal">
+          <h3>{s.name}</h3>
+          <p class="muted">{s.blurb}</p>
+        </li>
+      ))}
+    </ol>
+  </section>
+
+  <CtaBand />
 </BaseLayout>
+
+<style>
+  .hero { padding-block: var(--space-6); }
+  .hero-sub { font-size: var(--step-1); color: var(--ink-70); margin-block: var(--space-4); max-width: 46ch; }
+  .hero-actions { display: flex; gap: 1rem; flex-wrap: wrap; }
+  .work-list { border-bottom: 1px solid var(--hairline); margin-bottom: var(--space-3); }
+  .all-link { font-weight: 600; text-decoration: none; }
+  .all-link:hover { color: var(--red); }
+  .intro { font-size: var(--step-1); margin-bottom: var(--space-4); font-family: var(--font-display); }
+  .services { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: var(--space-4); }
+  .service .n { font-family: var(--font-display); font-size: var(--step-2); color: var(--red); }
+  .service h3 { font-size: var(--step-2); margin-block: 0.5rem 0.75rem; }
+  .steps { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: var(--space-4); counter-reset: step; }
+  .steps li { border-top: 2px solid var(--ink); padding-top: var(--space-2); }
+  .steps h3 { font-size: var(--step-1); margin-bottom: 0.5rem; }
+</style>

@@ -1,0 +1,30 @@
+<h1 class="display hero-title">
+  We design the <span class="blank"><span class="word" data-hero-word>taste</span></span> you can&rsquo;t name.
+</h1>
+
+<style>
+  .hero-title { max-width: 14ch; }
+  .blank { color: var(--red); font-style: italic; font-variation-settings: 'SOFT' 100; }
+  .word { display: inline-block; transition: opacity 0.35s ease, filter 0.35s ease; }
+  .word.is-out { opacity: 0; filter: blur(8px); }
+</style>
+
+<script>
+  function initHeroBlank() {
+    const el = document.querySelector<HTMLElement>('[data-hero-word]');
+    if (!el || el.dataset.init) return;
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+    el.dataset.init = '1';
+    const words = ['taste', 'feeling', 'pull', 'instinct', 'difference'];
+    let i = 0;
+    setInterval(() => {
+      el.classList.add('is-out');
+      setTimeout(() => {
+        i = (i + 1) % words.length;
+        el.textContent = words[i];
+        el.classList.remove('is-out');
+      }, 350);
+    }, 2800);
+  }
+  document.addEventListener('astro:page-load', initHeroBlank);
+</script>
