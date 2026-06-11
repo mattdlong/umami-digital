@@ -20,7 +20,7 @@ The current site is a single static page (vanilla HTML/CSS/JS on GitHub Pages). 
 | Design direction | Minimal editorial (light, type-driven, red as precision accent) |
 | Scope | Multi-page |
 | Positioning | Aspirational/broad — strategy, identity, web — with a confident point of view |
-| Work section | Self-initiated **concept studies**, honestly framed as studio work. No fabricated client engagements, testimonials, logos, or business metrics. The case-study template is identical to a client case study, so real work slots in later with a label change only. |
+| Work section | Three **anonymized-composite-style case studies** written in authentic tier-1 agency voice (confidential-client codenames, engagement narrative), built as demonstration content for Umami executives to evaluate the format. A single `workFraming` config flag switches presentation: `demo` (pure anonymized-composite presentation, for internal review) vs `production` (identical pages plus one quiet disclosure line on the work index, used for anything publicly deployed, since the repo auto-publishes to umamionline.com). No fabricated testimonials, client logos, or invented business metrics in either mode. Real client work replaces the composites later via frontmatter only. |
 
 ## 3. Brand Platform — "The Fifth Taste"
 
@@ -42,18 +42,18 @@ Umami is the taste you can't name but instantly recognize. Platform statement: *
 ### Page contents
 
 - **Home:** manifesto hero (signature motion moment), selected work (3 cards), services (Strategy / Identity / Web — opinionated descriptions, numbered 01–03), condensed approach, contact CTA band (dark punctuation section).
-- **Work index:** all case studies, framing line: self-initiated studio projects — "how we think before you hire us."
-- **Case study (template):** hero (project name, fictional-brand tag, role tags) → brief → approach → identity system shown as **live HTML/SVG artifacts** (type specimens, palettes) → screens as crisp HTML/CSS mockup frames → outcome written as design rationale. No invented business metrics. The three existing AI-generated PNGs are deleted.
+- **Work index:** all case studies; in `production` mode a single quiet framing line appears ("Demonstration case studies — shown in the format we deliver"); in `demo` mode it does not.
+- **Case study (template):** hero (codename, sector descriptor — e.g. "A national restaurant group", role tags) → brief → approach → identity system shown as **live HTML/SVG artifacts** (type specimens, palettes) → screens as crisp HTML/CSS mockup frames → outcome written as engagement-style design rationale. No invented business metrics, testimonials, or named real companies. The three existing AI-generated PNGs are deleted.
 - **Studio:** the platform statement expanded; 3–4 principles; engagement process (Discover → Define → Design → Deliver); what working together is like.
 - **Contact:** Web3Forms-powered form (free, static-compatible; access key obtained by user for hello@umamionline.com and pasted into config) + direct email link. Honest success/error states.
 
-### Case study concepts (fictional brands)
+### Case study concepts (anonymized composites, codenamed)
 
-| Slug | Brand | Scenario | Demonstrates |
-|---|---|---|---|
-| `koji` | Koji | Restaurant group identity + booking site | Brand + hospitality (on-theme) |
-| `terra` | Terra | Zero-waste grocery e-commerce | E-comm UX + art direction |
-| `lumen` | Lumen | Banking tool for freelancers | Product design + web app |
+| Slug | Codename | Sector descriptor | Engagement | Demonstrates |
+|---|---|---|---|---|
+| `koji` | Koji | A multi-venue restaurant group | Identity refresh + booking platform | Brand + hospitality (on-theme) |
+| `terra` | Terra | A zero-waste grocery retailer | E-commerce design + build | E-comm UX + art direction |
+| `lumen` | Lumen | An early-stage fintech | Product design for a freelancer banking tool | Product design + web app |
 
 ## 5. Design System
 
