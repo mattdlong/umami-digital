@@ -91,3 +91,14 @@ Umami is the taste you can't name but instantly recognize. Platform statement: *
 ## 9. Out of Scope
 
 Journal/blog, CMS, dark-mode toggle, analytics, i18n. All additive later; none required for launch.
+
+## 10. Elevation Pass Addendum (2026-06-11, post-launch)
+
+User feedback: too sparse for tier-1. Keep the system; add density of craft:
+
+- **ProjectArt** — bespoke SVG color-field compositions per project (Ember/Forage/Atlas palettes, subtle grain), used on work cards and case heroes with Astro view-transition continuity (art + title morph from card to case page).
+- **Case studies** — full-bleed hero on the project's ground colour with art; numbered narrative headings (CSS counters); artifacts on a full-bleed tint band; ink next-case band.
+- **Home** — ghost "umami" word in hero; marquee strip (Strategy · Identity · Web · The fifth taste); staggered asymmetric services grid.
+- **Studio** — full-width pull-quote band; offset two-column principles grid.
+- **Footer** — oversized full-width wordmark.
+- **Micro-interactions** — button lift, work-card art zoom, animated link underlines. All motion remains reduced-motion safe; all text combinations stay AA.
