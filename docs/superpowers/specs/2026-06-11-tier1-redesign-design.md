@@ -31,9 +31,9 @@ Umami is the taste you can't name but instantly recognize. Platform statement: *
 ```
 /                 Home
 /work/            Work index
-/work/koji/       Case study: Koji
-/work/terra/      Case study: Terra
-/work/lumen/      Case study: Lumen
+/work/ember/      Case study: Ember
+/work/forage/     Case study: Forage
+/work/atlas/      Case study: Atlas
 /studio/          Point of view, principles, process
 /contact/         Working contact form + email
 /404              Designed 404
@@ -51,9 +51,9 @@ Umami is the taste you can't name but instantly recognize. Platform statement: *
 
 | Slug | Codename | Sector descriptor | Engagement | Demonstrates |
 |---|---|---|---|---|
-| `koji` | Koji | A multi-venue restaurant group | Identity refresh + booking platform | Brand + hospitality (on-theme) |
-| `terra` | Terra | A zero-waste grocery retailer | E-commerce design + build | E-comm UX + art direction |
-| `lumen` | Lumen | An early-stage fintech | Product design for a freelancer banking tool | Product design + web app |
+| `ember` | Ember | A multi-venue restaurant group | Identity refresh + booking platform | Brand + hospitality (on-theme) |
+| `forage` | Forage | A zero-waste grocery retailer | E-commerce design + build | E-comm UX + art direction |
+| `atlas` | Atlas | An early-stage fintech | Product design for a freelancer banking tool | Product design + web app |
 
 ## 5. Design System
 
