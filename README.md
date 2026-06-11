@@ -1,13 +1,15 @@
-# Umami Digital — Tier-1 Redesign (Proposal)
+# Umami Digital
 
-Internal redesign proposal. Not deployed — `main` still serves the current
-live site; this branch (`redesign/tier1`) is viewed locally.
+The Umami Digital website — [umamionline.com](https://umamionline.com).
+Deployed automatically to GitHub Pages on push to `main`
+(`.github/workflows/deploy.yml`).
 
-## View the proposal
+## Local development
 
     npm install
-    npm run build
-    npm run preview   # open the printed localhost URL
+    npm run dev       # local dev server
+    npm run build     # production build
+    npm run preview   # serve the production build locally
 
 ## Stack
 
