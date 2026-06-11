@@ -4,6 +4,7 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
 import PaletteSwatch from '../../components/PaletteSwatch.astro';
 import TypeSpecimen from '../../components/TypeSpecimen.astro';
 import ScreenFrame from '../../components/ScreenFrame.astro';
+import ProjectArt from '../../components/ProjectArt.astro';
 import EmberScreen from '../../components/screens/EmberScreen.astro';
 import ForageScreen from '../../components/screens/ForageScreen.astro';
 import AtlasScreen from '../../components/screens/AtlasScreen.astro';
@@ -17,24 +18,30 @@ const { entry } = Astro.props;
 const { Content } = await render(entry);
 const { codename, sector, engagement, services, summary, palette, type } = entry.data;
 
-const screens: Record<string, { component: any; caption: string; displayStyle: string }> = {
+const themes: Record<string, {
+  component: any; caption: string; displayStyle: string;
+  ground: string; groundText: string; tint: string;
+}> = {
   ember: {
     component: EmberScreen,
     caption: 'The booking flow — three steps, fully in the group’s voice.',
     displayStyle: 'font-weight: 600; letter-spacing: -0.03em;',
+    ground: '#1C1A17', groundText: '#F4EFE6', tint: '#F4EFE6',
   },
   forage: {
     component: ForageScreen,
     caption: 'Product cards lead with weight, unit price and container.',
     displayStyle: 'font-weight: 440;',
+    ground: '#3D4A32', groundText: '#EFE8DA', tint: '#EFE8DA',
   },
   atlas: {
     component: AtlasScreen,
     caption: 'The dashboard — one number, machinery revealed progressively.',
     displayStyle: 'font-weight: 380; font-family: var(--font-text); letter-spacing: -0.04em;',
+    ground: '#10182B', groundText: '#F2F4F8', tint: '#F2F4F8',
   },
 };
-const { component: Screen, caption, displayStyle } = screens[entry.id];
+const { component: Screen, caption, displayStyle, ground, groundText, tint } = themes[entry.id];
 
 const all = (await getCollection('work')).sort((a, b) => a.data.order - b.data.order);
 const idx = all.findIndex((e) => e.id === entry.id);
@@ -42,45 +49,94 @@ const next = all[(idx + 1) % all.length];
 ---
 <BaseLayout title={`${codename} — Umami Digital`} description={summary}>
   <article>
-    <header class="section container">
-      <p class="eyebrow">{sector}</p>
-      <h1 class="display">{codename}</h1>
-      <p class="engagement">{engagement}</p>
-      <ul class="tags" role="list">
-        {services.map((s) => <li class="tag">{s}</li>)}
-      </ul>
+    <header class="case-hero" style={`--ground:${ground};--ground-text:${groundText}`}>
+      <div class="container hero-grid">
+        <div class="hero-text">
+          <p class="hero-eyebrow">{sector}</p>
+          <h1 class="display" transition:name={`title-${entry.id}`}>{codename}</h1>
+          <p class="engagement">{engagement}</p>
+          <ul class="tags hero-tags" role="list">
+            {services.map((s) => <li>{s}</li>)}
+          </ul>
+        </div>
+        <div class="hero-art" transition:name={`art-${entry.id}`}>
+          <ProjectArt slug={entry.id as 'ember' | 'forage' | 'atlas'} />
+        </div>
+      </div>
     </header>
 
     <div class="container narrative reveal">
       <Content />
     </div>
 
-    <section class="container section artifacts" aria-label="Identity system">
-      <h2 class="art-heading">The system</h2>
-      <TypeSpecimen display={type.display} text={type.text} displayStyle={displayStyle} accent={palette[1].hex} />
-      <PaletteSwatch palette={palette} />
-      <ScreenFrame caption={caption}><Screen /></ScreenFrame>
+    <section class="tint-band" style={`background:${tint}`} aria-label="Identity system">
+      <div class="container artifacts">
+        <h2 class="art-heading">The system</h2>
+        <TypeSpecimen display={type.display} text={type.text} displayStyle={displayStyle} accent={palette[1].hex} />
+        <PaletteSwatch palette={palette} />
+        <ScreenFrame caption={caption}><Screen /></ScreenFrame>
+      </div>
     </section>
 
-    <nav class="container next-case" aria-label="Next case study">
+    <nav class="next-case" aria-label="Next case study">
       <a href={`/work/${next.id}/`}>
-        <span class="eyebrow">Next case</span>
-        <span class="next-name">{next.data.codename} →</span>
+        <div class="container next-row">
+          <div>
+            <span class="next-eyebrow">Next case</span>
+            <span class="next-name">{next.data.codename}</span>
+          </div>
+          <span class="next-arrow" aria-hidden="true">→</span>
+        </div>
       </a>
     </nav>
   </article>
 </BaseLayout>
 
 <style>
-  .engagement { font-family: var(--font-display); font-size: var(--step-1); color: var(--ink-70); margin-block: var(--space-2) var(--space-3); }
-  .tags { display: flex; flex-wrap: wrap; gap: 0.5rem; list-style: none; margin: 0; padding: 0; }
-  .narrative { max-width: 760px; }
+  .case-hero { background: var(--ground); color: var(--ground-text); padding-block: var(--space-6); }
+  .hero-grid { display: grid; grid-template-columns: 7fr 5fr; gap: var(--space-5); align-items: center; }
+  .hero-eyebrow {
+    font-size: 0.78rem; font-weight: 650; letter-spacing: 0.16em; text-transform: uppercase;
+    opacity: 0.85; margin-bottom: 0.8rem;
+  }
+  .engagement { font-family: var(--font-display); font-size: var(--step-1); opacity: 0.85; margin-block: var(--space-2) var(--space-3); }
+  .hero-tags { display: flex; flex-wrap: wrap; gap: 0.5rem; list-style: none; margin: 0; padding: 0; }
+  .hero-tags li {
+    font-size: 0.78rem; font-weight: 550; letter-spacing: 0.06em; text-transform: uppercase;
+    padding: 0.3rem 0.85rem; border: 1px solid currentColor; border-radius: 999px; opacity: 0.9;
+  }
+  .hero-art { border-radius: 14px; overflow: hidden; aspect-ratio: 4 / 3; }
+
+  .narrative { max-width: 760px; padding-block: var(--space-6); counter-reset: sec; }
   .narrative :global(h2) { font-size: var(--step-2); margin-block: var(--space-4) var(--space-2); }
+  .narrative :global(h2:first-child) { margin-top: 0; }
+  .narrative :global(h2)::before {
+    counter-increment: sec;
+    content: counter(sec, decimal-leading-zero);
+    display: block;
+    font-family: var(--font-text);
+    font-size: 0.85rem;
+    font-weight: 650;
+    letter-spacing: 0.14em;
+    color: var(--red-text);
+    margin-bottom: 0.4rem;
+  }
   .narrative :global(p) { margin-bottom: var(--space-2); color: var(--ink-70); font-size: var(--step-0); }
+
+  .tint-band { padding-block: var(--space-6); }
   .artifacts { display: grid; gap: var(--space-4); }
   .art-heading { font-size: var(--step-2); }
-  .next-case { padding-block: var(--space-5); border-top: 1px solid var(--hairline); }
-  .next-case a { text-decoration: none; display: grid; gap: 0.4rem; }
+
+  .next-case { background: var(--ink); color: var(--paper); }
+  .next-case a { display: block; text-decoration: none; padding-block: var(--space-5); }
+  .next-row { display: flex; align-items: center; justify-content: space-between; gap: 1rem; }
+  .next-eyebrow { display: block; font-size: 0.78rem; font-weight: 650; letter-spacing: 0.16em; text-transform: uppercase; color: var(--red); margin-bottom: 0.4rem; }
   .next-name { font-family: var(--font-display); font-size: var(--step-3); }
+  .next-arrow { font-size: var(--step-3); transition: transform 0.25s ease; }
+  .next-case a:hover .next-arrow { transform: translateX(10px); }
   .next-case a:hover .next-name { color: var(--red); }
+
+  @media (max-width: 860px) {
+    .hero-grid { grid-template-columns: 1fr; gap: var(--space-4); }
+  }
 </style>

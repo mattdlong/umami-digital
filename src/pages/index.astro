@@ -5,6 +5,7 @@ import HeroBlank from '../components/HeroBlank.astro';
 import SectionHeading from '../components/SectionHeading.astro';
 import WorkCard from '../components/WorkCard.astro';
 import CtaBand from '../components/CtaBand.astro';
+import Marquee from '../components/Marquee.astro';
 
 const entries = (await getCollection('work')).sort((a, b) => a.data.order - b.data.order);
 
@@ -37,18 +38,23 @@ const steps = [
   title="Umami Digital — Strategy, identity and web"
   description="Umami Digital is a strategy, identity and web studio for brands that want to be remembered, not just recognised."
 >
-  <section class="hero container">
-    <HeroBlank />
-    <p class="hero-sub">
-      Umami is the fifth taste — the depth you notice before you can explain it.
-      We bring it to brands: strategy, identity and web for companies that want
-      to be remembered, not just recognised.
-    </p>
-    <div class="hero-actions">
-      <a href="/contact/" class="btn btn--solid">Start a project</a>
-      <a href="/work/" class="btn">See the work</a>
+  <section class="hero">
+    <span class="ghost" aria-hidden="true"></span>
+    <div class="container">
+      <HeroBlank />
+      <p class="hero-sub">
+        Umami is the fifth taste — the depth you notice before you can explain it.
+        We bring it to brands: strategy, identity and web for companies that want
+        to be remembered, not just recognised.
+      </p>
+      <div class="hero-actions">
+        <a href="/contact/" class="btn btn--solid">Start a project</a>
+        <a href="/work/" class="btn">See the work</a>
+      </div>
     </div>
   </section>
+
+  <Marquee items={['Strategy', 'Identity', 'Web', 'The fifth taste']} />
 
   <section class="section container" aria-label="Selected work">
     <SectionHeading eyebrow="Selected work" title="The proof is in the tasting." />
@@ -96,7 +102,20 @@ const steps = [
 </BaseLayout>
 
 <style>
-  .hero { padding-block: var(--space-6); }
+  .hero { padding-block: var(--space-6); position: relative; overflow: hidden; }
+  .ghost::before { content: 'umami'; }
+  .ghost {
+    position: absolute;
+    right: -0.08em;
+    bottom: -0.32em;
+    font-family: var(--font-display);
+    font-style: italic;
+    font-size: clamp(8rem, 24vw, 22rem);
+    line-height: 1;
+    color: rgba(20, 20, 20, 0.045);
+    pointer-events: none;
+    user-select: none;
+  }
   .hero-sub { font-size: var(--step-1); color: var(--ink-70); margin-block: var(--space-4); max-width: 46ch; }
   .hero-actions { display: flex; gap: 1rem; flex-wrap: wrap; }
   .work-list { border-bottom: 1px solid var(--hairline); margin-bottom: var(--space-3); }
@@ -104,8 +123,13 @@ const steps = [
   .all-link:hover { color: var(--red); }
   .intro { font-size: var(--step-1); margin-bottom: var(--space-4); font-family: var(--font-display); }
   .services { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: var(--space-4); }
-  .service .n { font-family: var(--font-display); font-size: var(--step-2); color: var(--red); }
+  .service { border-top: 2px solid var(--ink); padding-top: var(--space-3); }
+  .service .n { font-family: var(--font-display); font-size: var(--step-3); color: var(--red); line-height: 1; }
   .service h3 { font-size: var(--step-2); margin-block: 0.5rem 0.75rem; }
+  @media (min-width: 900px) {
+    .service:nth-child(2) { margin-top: var(--space-5); }
+    .service:nth-child(3) { margin-top: calc(var(--space-5) * 2); }
+  }
   .steps { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: var(--space-4); counter-reset: step; }
   .steps li { border-top: 2px solid var(--ink); padding-top: var(--space-2); }
   .steps h3 { font-size: var(--step-1); margin-bottom: 0.5rem; }

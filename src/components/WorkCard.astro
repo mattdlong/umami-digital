@@ -1,4 +1,6 @@
 ---
+import ProjectArt from './ProjectArt.astro';
+
 interface Props {
   slug: string;
   codename: string;
@@ -9,29 +11,42 @@ interface Props {
 const { slug, codename, sector, engagement, services } = Astro.props;
 ---
 <a href={`/work/${slug}/`} class="work-card reveal">
-  <div class="head">
-    <h3 class="codename">{codename}</h3>
-    <span class="arrow" aria-hidden="true">→</span>
+  <div class="art-panel" transition:name={`art-${slug}`}>
+    <ProjectArt slug={slug as 'ember' | 'forage' | 'atlas'} />
   </div>
-  <p class="line">{sector} — {engagement.toLowerCase()}</p>
-  <ul class="tags" role="list">
-    {services.map((s) => <li class="tag">{s}</li>)}
-  </ul>
+  <div class="info">
+    <div class="head">
+      <h3 class="codename" transition:name={`title-${slug}`}>{codename}</h3>
+      <span class="arrow" aria-hidden="true">→</span>
+    </div>
+    <p class="line">{sector} — {engagement.toLowerCase()}</p>
+    <ul class="tags" role="list">
+      {services.map((s) => <li class="tag">{s}</li>)}
+    </ul>
+  </div>
 </a>
 
 <style>
   .work-card {
-    display: block; text-decoration: none;
+    display: grid;
+    grid-template-columns: minmax(260px, 5fr) 7fr;
+    gap: var(--space-4);
+    align-items: center;
+    text-decoration: none;
     border-top: 1px solid var(--hairline);
     padding-block: var(--space-4);
-    transition: padding-left 0.25s ease;
   }
-  .work-card:hover { padding-left: 0.75rem; }
+  .art-panel { border-radius: 14px; overflow: hidden; aspect-ratio: 4 / 3; }
+  .art-panel :global(svg) { transition: transform 0.6s cubic-bezier(0.2, 0.6, 0.2, 1); }
+  .work-card:hover .art-panel :global(svg) { transform: scale(1.05); }
   .head { display: flex; align-items: baseline; justify-content: space-between; gap: 1rem; }
   .codename { font-size: var(--step-3); }
-  .work-card:hover .codename { color: var(--red); }
-  .arrow { font-size: var(--step-2); color: var(--red); opacity: 0; transition: opacity 0.25s ease; }
-  .work-card:hover .arrow { opacity: 1; }
+  .work-card:hover .codename { color: var(--red-text); }
+  .arrow { font-size: var(--step-2); color: var(--red-text); opacity: 0; transform: translateX(-8px); transition: opacity 0.25s ease, transform 0.25s ease; }
+  .work-card:hover .arrow { opacity: 1; transform: none; }
   .line { color: var(--ink-70); margin-block: 0.6rem 1rem; font-size: var(--step-1); font-family: var(--font-display); }
   .tags { display: flex; flex-wrap: wrap; gap: 0.5rem; list-style: none; margin: 0; padding: 0; }
+  @media (max-width: 760px) {
+    .work-card { grid-template-columns: 1fr; gap: var(--space-3); }
+  }
 </style>

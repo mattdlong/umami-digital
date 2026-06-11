@@ -1,0 +1,56 @@
+---
+// Bespoke colour-field composition per project. Pure SVG — no rasters.
+interface Props { slug: 'ember' | 'forage' | 'atlas' }
+const { slug } = Astro.props;
+---
+{slug === 'ember' && (
+  <svg viewBox="0 0 800 600" class="art" aria-hidden="true">
+    <rect width="800" height="600" fill="#1C1A17" />
+    <circle cx="620" cy="520" r="300" fill="#D8491B" />
+    <circle cx="620" cy="520" r="190" fill="#1C1A17" />
+    <circle cx="620" cy="520" r="110" fill="#D8491B" opacity="0.85" />
+    <circle cx="210" cy="190" r="120" fill="none" stroke="#A39E94" stroke-width="2" />
+    <circle cx="210" cy="190" r="14" fill="#F4EFE6" />
+    <line x1="60" y1="470" x2="330" y2="470" stroke="#A39E94" stroke-width="2" />
+    <rect width="800" height="600" filter="url(#grain-ember)" opacity="0.06" />
+    <defs>
+      <filter id="grain-ember"><feTurbulence type="fractalNoise" baseFrequency="0.9" numOctaves="2" /></filter>
+    </defs>
+  </svg>
+)}
+{slug === 'forage' && (
+  <svg viewBox="0 0 800 600" class="art" aria-hidden="true">
+    <rect width="800" height="600" fill="#EFE8DA" />
+    <circle cx="230" cy="560" r="280" fill="#3D4A32" />
+    <path d="M 470 240 a 150 150 0 0 1 300 0 v 130 h -300 z" fill="#B66E41" />
+    <circle cx="620" cy="240" r="44" fill="#EFE8DA" />
+    <circle cx="160" cy="150" r="16" fill="#20231D" />
+    <line x1="480" y1="470" x2="730" y2="470" stroke="#20231D" stroke-width="2" />
+    <rect width="800" height="600" filter="url(#grain-forage)" opacity="0.05" />
+    <defs>
+      <filter id="grain-forage"><feTurbulence type="fractalNoise" baseFrequency="0.9" numOctaves="2" /></filter>
+    </defs>
+  </svg>
+)}
+{slug === 'atlas' && (
+  <svg viewBox="0 0 800 600" class="art" aria-hidden="true">
+    <rect width="800" height="600" fill="#10182B" />
+    <g stroke="#5A6478" stroke-width="1" opacity="0.55">
+      <line x1="0" y1="150" x2="800" y2="150" />
+      <line x1="0" y1="300" x2="800" y2="300" />
+      <line x1="0" y1="450" x2="800" y2="450" />
+    </g>
+    <polyline points="40,470 220,390 390,420 560,250 760,130" fill="none" stroke="#2E5BFF" stroke-width="6" stroke-linecap="round" stroke-linejoin="round" />
+    <circle cx="560" cy="250" r="16" fill="#F2F4F8" />
+    <circle cx="760" cy="130" r="10" fill="#2E5BFF" />
+    <rect x="40" y="80" width="120" height="34" rx="17" fill="none" stroke="#5A6478" stroke-width="1.5" />
+    <rect width="800" height="600" filter="url(#grain-atlas)" opacity="0.06" />
+    <defs>
+      <filter id="grain-atlas"><feTurbulence type="fractalNoise" baseFrequency="0.9" numOctaves="2" /></filter>
+    </defs>
+  </svg>
+)}
+
+<style>
+  .art { width: 100%; height: 100%; object-fit: cover; display: block; }
+</style>

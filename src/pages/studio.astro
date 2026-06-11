@@ -35,6 +35,12 @@ const process = [
     </div>
   </section>
 
+  <section class="quote-band" aria-hidden="true">
+    <div class="container">
+      <p class="quote"><span class="qmark">“</span>Most brands stop at recognisable.</p>
+    </div>
+  </section>
+
   <section class="section container" aria-label="Principles">
     <SectionHeading eyebrow="Principles" title="Four rules we don't break." />
     <div class="principles">
@@ -71,9 +77,17 @@ const process = [
 <style>
   .manifesto { margin-top: var(--space-4); max-width: 56ch; }
   .manifesto p { font-family: var(--font-display); font-size: var(--step-1); margin-bottom: var(--space-2); }
-  .principles { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: var(--space-4); }
-  .principle .n { font-family: var(--font-display); font-size: var(--step-2); color: var(--red); }
+  .quote-band { background: var(--ink); color: var(--paper); padding-block: var(--space-5); overflow: hidden; }
+  .quote { font-family: var(--font-display); font-style: italic; font-size: var(--step-3); line-height: 1.15; max-width: none; }
+  .qmark { color: var(--red); }
+  .principles { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: var(--space-4) var(--space-5); }
+  .principle { border-top: 2px solid var(--ink); padding-top: var(--space-3); }
+  .principle .n { font-family: var(--font-display); font-size: var(--step-3); color: var(--red); line-height: 1; }
   .principle h3 { font-size: var(--step-1); margin-block: 0.5rem 0.75rem; }
+  @media (min-width: 900px) {
+    .principles { grid-template-columns: 1fr 1fr; }
+    .principle:nth-child(even) { margin-top: var(--space-5); }
+  }
   .process { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: var(--space-4); }
   .process li { border-top: 2px solid var(--ink); padding-top: var(--space-2); }
   .process h3 { font-size: var(--step-1); margin-bottom: 0.5rem; }

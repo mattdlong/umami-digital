@@ -1,0 +1,27 @@
+---
+interface Props { items: string[] }
+const { items } = Astro.props;
+const copies = [0, 1, 2, 3];
+---
+<div class="marquee" aria-hidden="true">
+  <div class="track">
+    {copies.map(() => (
+      <div class="group">
+        {items.map((t) => <span class="item">{t}<i>·</i></span>)}
+      </div>
+    ))}
+  </div>
+</div>
+
+<style>
+  .marquee { overflow: hidden; border-block: 1px solid var(--hairline); padding-block: 1.2rem; }
+  .track { display: flex; width: max-content; animation: marquee 30s linear infinite; }
+  .group { display: flex; }
+  .item {
+    display: inline-flex; align-items: center; gap: 2.2rem; padding-right: 2.2rem;
+    font-family: var(--font-display); font-size: var(--step-2); white-space: nowrap; color: var(--ink);
+  }
+  .item i { color: var(--red); font-style: normal; }
+  @keyframes marquee { to { transform: translateX(-25%); } }
+  @media (prefers-reduced-motion: reduce) { .track { animation: none; } }
+</style>
