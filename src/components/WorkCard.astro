@@ -1,0 +1,37 @@
+---
+interface Props {
+  slug: string;
+  codename: string;
+  sector: string;
+  engagement: string;
+  services: string[];
+}
+const { slug, codename, sector, engagement, services } = Astro.props;
+---
+<a href={`/work/${slug}/`} class="work-card reveal">
+  <div class="head">
+    <h3 class="codename">{codename}</h3>
+    <span class="arrow" aria-hidden="true">→</span>
+  </div>
+  <p class="line">{sector} — {engagement.toLowerCase()}</p>
+  <ul class="tags" role="list">
+    {services.map((s) => <li class="tag">{s}</li>)}
+  </ul>
+</a>
+
+<style>
+  .work-card {
+    display: block; text-decoration: none;
+    border-top: 1px solid var(--hairline);
+    padding-block: var(--space-4);
+    transition: padding-left 0.25s ease;
+  }
+  .work-card:hover { padding-left: 0.75rem; }
+  .head { display: flex; align-items: baseline; justify-content: space-between; gap: 1rem; }
+  .codename { font-size: var(--step-3); }
+  .work-card:hover .codename { color: var(--red); }
+  .arrow { font-size: var(--step-2); color: var(--red); opacity: 0; transition: opacity 0.25s ease; }
+  .work-card:hover .arrow { opacity: 1; }
+  .line { color: var(--ink-70); margin-block: 0.6rem 1rem; font-size: var(--step-1); font-family: var(--font-display); }
+  .tags { display: flex; flex-wrap: wrap; gap: 0.5rem; list-style: none; margin: 0; padding: 0; }
+</style>

@@ -1,0 +1,33 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import WorkCard from '../../components/WorkCard.astro';
+
+const entries = (await getCollection('work')).sort((a, b) => a.data.order - b.data.order);
+---
+<BaseLayout
+  title="Work — Umami Digital"
+  description="Selected engagements across brand identity, e-commerce and product design."
+>
+  <section class="section container">
+    <p class="eyebrow">Selected work</p>
+    <h1 class="display">The proof is in the tasting.</h1>
+    <p class="muted framing">Codenames stand in where confidentiality applies.</p>
+    <div class="list">
+      {entries.map((e) => (
+        <WorkCard
+          slug={e.id}
+          codename={e.data.codename}
+          sector={e.data.sector}
+          engagement={e.data.engagement}
+          services={e.data.services}
+        />
+      ))}
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .framing { margin-block: var(--space-2) var(--space-5); }
+  .list { border-bottom: 1px solid var(--hairline); }
+</style>
