@@ -1,0 +1,81 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import SectionHeading from '../components/SectionHeading.astro';
+import CtaBand from '../components/CtaBand.astro';
+
+const principles = [
+  { n: '01', name: 'Restraint is a flavour.', blurb: 'The confidence to leave things out is what makes the remaining things land.' },
+  { n: '02', name: 'Type does the talking.', blurb: 'Typography carries more identity than any logo. We treat it that way.' },
+  { n: '03', name: 'Craft is strategy.', blurb: 'How something is made is part of what it says. Sloppy execution undoes sharp thinking.' },
+  { n: '04', name: 'Ship the difference.', blurb: 'A brand isn’t what’s in the deck; it’s what people meet. We build what we design.' },
+];
+
+const process = [
+  { name: 'Discover', blurb: 'Two weeks of listening: stakeholder interviews, customer conversations, a hard look at the competition. You get the brief behind the brief — what’s actually in the way.' },
+  { name: 'Define', blurb: 'Strategy on one page: positioning, audience, message, measure of success. Nothing moves to design until this is agreed, because everything downstream answers to it.' },
+  { name: 'Design', blurb: 'Short, opinionated rounds. You see real work in the first week and every week after — direction settles by decision, not by attrition.' },
+  { name: 'Deliver', blurb: 'We build what we designed: accessible, fast, documented. Handover includes the system, not just the files.' },
+];
+---
+<BaseLayout
+  title="Studio — Umami Digital"
+  description="Umami is the fifth taste — the depth you notice before you can explain it. How the studio thinks and works."
+>
+  <section class="section container">
+    <p class="eyebrow">The studio</p>
+    <h1 class="display">The fifth taste.</h1>
+    <div class="manifesto reveal">
+      <p>
+        Sweet, salty, sour, bitter — and umami: the one you can&rsquo;t point to,
+        but can&rsquo;t miss. Most brands stop at recognisable. The ones people
+        return to have something deeper — a quality you notice before you can
+        explain it.
+      </p>
+      <p><strong>That&rsquo;s the thing we make.</strong></p>
+    </div>
+  </section>
+
+  <section class="section container" aria-label="Principles">
+    <SectionHeading eyebrow="Principles" title="Four rules we don't break." />
+    <div class="principles">
+      {principles.map((p) => (
+        <div class="principle reveal">
+          <span class="n" aria-hidden="true">{p.n}</span>
+          <h3>{p.name}</h3>
+          <p class="muted">{p.blurb}</p>
+        </div>
+      ))}
+    </div>
+  </section>
+
+  <section class="section container" aria-label="Process">
+    <SectionHeading eyebrow="Process" title="How an engagement runs." />
+    <ol class="process">
+      {process.map((s) => (
+        <li class="reveal">
+          <h3>{s.name}</h3>
+          <p class="muted">{s.blurb}</p>
+        </li>
+      ))}
+    </ol>
+    <p class="working reveal">
+      We&rsquo;re a small studio by design: senior people only, a direct line to
+      whoever is doing the work, and a fixed scope per phase so you always know
+      what you&rsquo;re buying.
+    </p>
+  </section>
+
+  <CtaBand />
+</BaseLayout>
+
+<style>
+  .manifesto { margin-top: var(--space-4); max-width: 56ch; }
+  .manifesto p { font-family: var(--font-display); font-size: var(--step-1); margin-bottom: var(--space-2); }
+  .principles { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: var(--space-4); }
+  .principle .n { font-family: var(--font-display); font-size: var(--step-2); color: var(--red); }
+  .principle h3 { font-size: var(--step-1); margin-block: 0.5rem 0.75rem; }
+  .process { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: var(--space-4); }
+  .process li { border-top: 2px solid var(--ink); padding-top: var(--space-2); }
+  .process h3 { font-size: var(--step-1); margin-bottom: 0.5rem; }
+  .working { margin-top: var(--space-5); font-size: var(--step-1); font-family: var(--font-display); max-width: 50ch; }
+</style>
