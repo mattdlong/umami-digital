@@ -3,11 +3,10 @@ import { getCollection, render } from 'astro:content';
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import PaletteSwatch from '../../components/PaletteSwatch.astro';
 import TypeSpecimen from '../../components/TypeSpecimen.astro';
-import ScreenFrame from '../../components/ScreenFrame.astro';
 import ProjectArt from '../../components/ProjectArt.astro';
-import EmberScreen from '../../components/screens/EmberScreen.astro';
-import ForageScreen from '../../components/screens/ForageScreen.astro';
-import AtlasScreen from '../../components/screens/AtlasScreen.astro';
+import EmberShowcase from '../../components/showcase/EmberShowcase.astro';
+import ForageShowcase from '../../components/showcase/ForageShowcase.astro';
+import AtlasShowcase from '../../components/showcase/AtlasShowcase.astro';
 
 export async function getStaticPaths() {
   const entries = await getCollection('work');
@@ -16,32 +15,40 @@ export async function getStaticPaths() {
 
 const { entry } = Astro.props;
 const { Content } = await render(entry);
-const { codename, sector, engagement, services, summary, palette, type } = entry.data;
+const { codename, sector, engagement, services, summary, palette, type, deliverables } = entry.data;
 
 const themes: Record<string, {
-  component: any; caption: string; displayStyle: string;
+  showcase: any; displayStyle: string;
   ground: string; groundText: string; tint: string;
+  pull: string; tagline: string; wordmarkStyle: string;
 }> = {
   ember: {
-    component: EmberScreen,
-    caption: 'The booking flow — three steps, fully in the group’s voice.',
+    showcase: EmberShowcase,
     displayStyle: 'font-weight: 600; letter-spacing: -0.03em;',
     ground: '#1C1A17', groundText: '#F4EFE6', tint: '#F4EFE6',
+    pull: 'One identity, dialled by heat — five rooms, one hand.',
+    tagline: 'Identity, dialled by heat',
+    wordmarkStyle: 'font-family: var(--font-display); font-weight: 600; letter-spacing: -0.03em;',
   },
   forage: {
-    component: ForageScreen,
-    caption: 'Product cards lead with weight, unit price and container.',
+    showcase: ForageShowcase,
     displayStyle: 'font-weight: 440;',
     ground: '#3D4A32', groundText: '#EFE8DA', tint: '#EFE8DA',
+    pull: 'A store that sells the way the best floor staff do.',
+    tagline: 'Routine first, category second',
+    wordmarkStyle: 'font-family: var(--font-display); font-weight: 440; text-transform: lowercase; letter-spacing: 0.02em;',
   },
   atlas: {
-    component: AtlasScreen,
-    caption: 'The dashboard — one number, machinery revealed progressively.',
+    showcase: AtlasShowcase,
     displayStyle: 'font-weight: 380; font-family: var(--font-text); letter-spacing: -0.04em;',
     ground: '#10182B', groundText: '#F2F4F8', tint: '#F2F4F8',
+    pull: 'One number — and the machinery that steadies it.',
+    tagline: 'Infrastructure, not an app',
+    wordmarkStyle: 'font-family: var(--font-text); font-weight: 700; letter-spacing: -0.04em;',
   },
 };
-const { component: Screen, caption, displayStyle, ground, groundText, tint } = themes[entry.id];
+const { showcase: Showcase, displayStyle, ground, groundText, tint, pull, tagline, wordmarkStyle } = themes[entry.id];
+const accent = palette[1].hex;
 
 const all = (await getCollection('work')).sort((a, b) => a.data.order - b.data.order);
 const idx = all.findIndex((e) => e.id === entry.id);
@@ -65,6 +72,10 @@ const next = all[(idx + 1) % all.length];
       </div>
     </header>
 
+    <div class="container lede-wrap">
+      <p class="lede rise"><span class="rise-inner">{summary}</span></p>
+    </div>
+
     <div class="container narrative-wrap">
       <aside class="meta" aria-hidden="true">
         <dl>
@@ -78,12 +89,42 @@ const next = all[(idx + 1) % all.length];
       </div>
     </div>
 
+    <section class="pull-band" style={`background:${ground};color:${groundText}`} aria-hidden="true">
+      <div class="container">
+        <p class="pull"><span class="pull-mark" style={`color:${accent}`}>“</span>{pull}</p>
+      </div>
+    </section>
+
     <section class="tint-band" style={`background:${tint}`} aria-label="Identity system">
       <div class="container artifacts">
-        <h2 class="art-heading">The system</h2>
-        <TypeSpecimen display={type.display} text={type.text} displayStyle={displayStyle} accent={palette[1].hex} />
+        <p class="band-eyebrow">The system</p>
+        <h2 class="art-heading rise"><span class="rise-inner">An identity with a point of <em>view</em><span class="dot">.</span></span></h2>
+        <div class="wordmark-panel reveal" style={`background:${ground};color:${groundText}`}>
+          <p class="wordmark" style={wordmarkStyle}>{codename}<span style={`color:${accent}`}>.</span></p>
+          <p class="wm-tagline">{tagline}</p>
+        </div>
+        <TypeSpecimen display={type.display} text={type.text} displayStyle={displayStyle} accent={accent} />
         <PaletteSwatch palette={palette} />
-        <ScreenFrame caption={caption}><Screen /></ScreenFrame>
+      </div>
+    </section>
+
+    <section class="container application" aria-label="The work in application">
+      <p class="band-eyebrow">In application</p>
+      <h2 class="art-heading rise"><span class="rise-inner">The work, where people <em>meet</em> it<span class="dot">.</span></span></h2>
+      <Showcase />
+    </section>
+
+    <section class="shipped" aria-label="What shipped">
+      <div class="container">
+        <p class="band-eyebrow shipped-eyebrow">What shipped</p>
+        <ol class="ship-list">
+          {deliverables.map((d, i) => (
+            <li class="reveal">
+              <span class="ship-num" aria-hidden="true">{String(i + 1).padStart(2, '0')}</span>
+              <span class="ship-name">{d}</span>
+            </li>
+          ))}
+        </ol>
       </div>
     </section>
 
@@ -116,7 +157,10 @@ const next = all[(idx + 1) % all.length];
   }
   .hero-art { border-radius: 14px; overflow: hidden; aspect-ratio: 4 / 3; }
 
-  .narrative-wrap { padding-block: var(--space-6); }
+  .lede-wrap { padding-top: var(--space-6); }
+  .lede { font-family: var(--font-display); font-size: var(--step-2); line-height: 1.25; max-width: 26ch; }
+
+  .narrative-wrap { padding-block: var(--space-5) var(--space-6); }
   .meta { display: none; }
   @media (min-width: 1000px) {
     .narrative-wrap { display: grid; grid-template-columns: 4fr 8fr; gap: var(--space-5); align-items: start; }
@@ -149,11 +193,33 @@ const next = all[(idx + 1) % all.length];
   }
   .narrative :global(p) { margin-bottom: var(--space-2); color: var(--ink-70); font-size: var(--step-0); }
 
-  .tint-band { padding-block: var(--space-6); }
-  .artifacts { display: grid; gap: var(--space-4); }
-  .art-heading { font-size: var(--step-2); }
+  .pull-band { padding-block: var(--space-5); }
+  .pull { font-family: var(--font-display); font-style: italic; font-size: var(--step-3); line-height: 1.15; max-width: none; }
 
-  .next-case { background: var(--ink); color: var(--paper); }
+  .band-eyebrow {
+    font-size: 0.78rem; font-weight: 650; letter-spacing: 0.16em; text-transform: uppercase;
+    color: var(--red-text); margin-bottom: 0.6rem;
+  }
+  /* tint grounds are darker than paper — bump small-text colors to hold AA */
+  .tint-band { padding-block: var(--space-6); --ink-50: #605d57; }
+  .tint-band .band-eyebrow { color: #B83122; }
+  .artifacts { display: grid; gap: var(--space-4); }
+  .art-heading { font-size: var(--step-3); }
+  .wordmark-panel { border-radius: 14px; padding: clamp(2rem, 6vw, 4rem); display: grid; gap: 0.6rem; }
+  .wordmark { font-size: clamp(3rem, 9vw, 6.5rem); line-height: 1; }
+  .wm-tagline { font-size: 0.85rem; letter-spacing: 0.14em; text-transform: uppercase; opacity: 0.75; }
+
+  .application { padding-block: var(--space-6); }
+  .application .art-heading { margin-bottom: var(--space-4); }
+
+  .shipped { background: var(--ink); color: var(--paper); padding-block: var(--space-6); }
+  .shipped-eyebrow { color: var(--red); }
+  .ship-list { list-style: none; margin: var(--space-3) 0 0; padding: 0; display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: var(--space-4); }
+  .ship-list li { border-top: 1px solid var(--hairline-light); padding-top: var(--space-2); }
+  .ship-num { display: block; font-family: var(--font-display); font-size: var(--step-2); color: var(--red); margin-bottom: 0.4rem; }
+  .ship-name { font-family: var(--font-display); font-size: var(--step-1); }
+
+  .next-case { background: var(--ink); color: var(--paper); border-top: 1px solid var(--hairline-light); }
   .next-case a { display: block; text-decoration: none; padding-block: var(--space-5); }
   .next-row { display: flex; align-items: center; justify-content: space-between; gap: 1rem; }
   .next-eyebrow { display: block; font-size: 0.78rem; font-weight: 650; letter-spacing: 0.16em; text-transform: uppercase; color: var(--red); margin-bottom: 0.4rem; }

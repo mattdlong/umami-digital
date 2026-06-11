@@ -16,6 +16,7 @@ const work = defineCollection({
     })),
     type: z.object({ display: z.string(), text: z.string() }),
     tint: z.string().regex(/^#[0-9A-Fa-f]{6}$/),
+    deliverables: z.array(z.string()),
   }),
 });
 

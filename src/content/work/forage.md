@@ -14,6 +14,7 @@ type:
   display: Sturdy serif with a hand-set warmth
   text: Plainspoken grotesque, generous line height
 tint: "#EFE8DA"
+deliverables: [Brand refresh, E-commerce design & build, Packaging & label system, Art direction]
 ---
 
 ## The brief

@@ -14,6 +14,7 @@ type:
   display: Engineered grotesque, tight tracking
   text: The same family at text sizes — one voice, two volumes
 tint: "#F2F4F8"
+deliverables: [Product strategy, Dashboard & mobile app design, Design system & tokens, Two-screen investor narrative]
 ---
 
 ## The brief

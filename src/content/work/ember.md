@@ -14,6 +14,7 @@ type:
   display: High-contrast serif — tight, hot, slightly wonky
   text: Quiet grotesque that stays out of the food's way
 tint: "#F4EFE6"
+deliverables: [Identity system, Venue sub-brand lockups, Menu & signage suite, In-house booking platform]
 ---
 
 ## The brief
