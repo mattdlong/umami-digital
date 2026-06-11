@@ -121,8 +121,10 @@ p { max-width: 65ch; }
 .reveal { opacity: 0; transform: translateY(16px); transition: opacity 0.6s ease, transform 0.6s ease; }
 .reveal.is-visible { opacity: 1; transform: none; }
 
-/* ===== Masked line rise for display headlines ===== */
-.rise { overflow: hidden; }
+/* ===== Masked line rise for display headlines =====
+   padding-bottom gives descenders (g, y) room inside the clip box;
+   the negative margin cancels it out of the layout. */
+.rise { overflow: hidden; padding-bottom: 0.14em; margin-bottom: -0.14em; }
 .rise .rise-inner { display: block; transform: translateY(115%); transition: transform 0.85s cubic-bezier(0.2, 0.6, 0.2, 1); }
 .rise.is-visible .rise-inner { transform: none; }
 
