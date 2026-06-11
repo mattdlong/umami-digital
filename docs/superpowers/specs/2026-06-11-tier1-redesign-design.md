@@ -20,7 +20,7 @@ The current site is a single static page (vanilla HTML/CSS/JS on GitHub Pages). 
 | Design direction | Minimal editorial (light, type-driven, red as precision accent) |
 | Scope | Multi-page |
 | Positioning | Aspirational/broad — strategy, identity, web — with a confident point of view |
-| Work section | Three **anonymized-composite-style case studies** written in authentic tier-1 agency voice (confidential-client codenames, engagement narrative), built as demonstration content for Umami executives to evaluate the format. A single `workFraming` config flag switches presentation: `demo` (pure anonymized-composite presentation, for internal review) vs `production` (identical pages plus one quiet disclosure line on the work index, used for anything publicly deployed, since the repo auto-publishes to umamionline.com). No fabricated testimonials, client logos, or invented business metrics in either mode. Real client work replaces the composites later via frontmatter only. |
+| Work section | Three **anonymized-composite-style case studies** written in authentic tier-1 agency voice (confidential-client codenames, sector descriptors, engagement narrative). Built as demonstration content for Umami executives to evaluate the format — the site is an internal example/proposal and will not be published live. No fabricated testimonials, client logos, or invented business metrics. Real client work replaces the composites later via frontmatter only. |
 
 ## 3. Brand Platform — "The Fifth Taste"
 
@@ -42,10 +42,10 @@ Umami is the taste you can't name but instantly recognize. Platform statement: *
 ### Page contents
 
 - **Home:** manifesto hero (signature motion moment), selected work (3 cards), services (Strategy / Identity / Web — opinionated descriptions, numbered 01–03), condensed approach, contact CTA band (dark punctuation section).
-- **Work index:** all case studies; in `production` mode a single quiet framing line appears ("Demonstration case studies — shown in the format we deliver"); in `demo` mode it does not.
+- **Work index:** all case studies, presented straight in anonymized-composite format.
 - **Case study (template):** hero (codename, sector descriptor — e.g. "A national restaurant group", role tags) → brief → approach → identity system shown as **live HTML/SVG artifacts** (type specimens, palettes) → screens as crisp HTML/CSS mockup frames → outcome written as engagement-style design rationale. No invented business metrics, testimonials, or named real companies. The three existing AI-generated PNGs are deleted.
 - **Studio:** the platform statement expanded; 3–4 principles; engagement process (Discover → Define → Design → Deliver); what working together is like.
-- **Contact:** Web3Forms-powered form (free, static-compatible; access key obtained by user for hello@umamionline.com and pasted into config) + direct email link. Honest success/error states.
+- **Contact:** designed contact form (client-side validation and success/error states demonstrated) + direct email link. Since this is a proposal with no live site, the form is not wired to a backend; Web3Forms wiring is a one-line follow-on if the site ever ships.
 
 ### Case study concepts (anonymized composites, codenamed)
 
@@ -73,12 +73,12 @@ Umami is the taste you can't name but instantly recognize. Platform statement: *
 - **Images:** `astro:assets` for any raster images; prefer SVG/HTML artifacts. Old PNGs (approach/work/AI images) deleted; logo PNGs replaced by SVG.
 - **SEO:** per-page title/description, canonical, Open Graph + Twitter cards, generated OG image, `@astrojs/sitemap`, robots.txt, JSON-LD Organization.
 - **Accessibility:** skip link, semantic landmarks, visible focus styles, AA contrast, real `<label>`s on the form, reduced-motion.
-- **Deploy:** GitHub Actions (`withastro/action`) → GitHub Pages; CNAME kept (`public/CNAME`). Old root-level site files removed once the Astro build replaces them.
+- **Delivery:** internal example/proposal only — no live deployment. Work happens on a feature branch (`redesign/tier1`) so the existing site currently served at umamionline.com from `main` stays untouched; executives view the proposal via `astro build && astro preview` (or a shared zip of `dist/`). Deploy automation is out of scope; if the proposal is approved later, a GitHub Actions → Pages pipeline is a small follow-on.
 - **Budgets:** Lighthouse ≥95 (all categories), <200KB first-load transfer, zero CLS from fonts/images.
 
 ## 7. Error Handling
 
-- Contact form: client-side validation, explicit success state, explicit failure state with direct email fallback ("or email hello@umamionline.com"). Until the user supplies the Web3Forms key, the form ships pointing at a placeholder env value and the build warns; email link always works.
+- Contact form: client-side validation, explicit success state, explicit failure state with direct email fallback ("or email hello@umamionline.com"). Not wired to a backend for the proposal; email link always works.
 - Designed 404 routes users back to home/work.
 
 ## 8. Testing & Verification
